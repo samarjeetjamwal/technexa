@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Finest Deal Vault | AI Electronics & Smart Gear</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, 'BlinkMacSystemFont', 'Roboto', sans-serif;
+            background: radial-gradient(circle at 10% 30%, #f1f5fc 0%, #e9eef4 100%);
+            color: #121826;
+        }
+
+        /* modern glassmorphism header — tech vibe */
+        header {
+            background: rgba(10, 20, 30, 0.94);
+            backdrop-filter: blur(14px);
+            color: #f0f9ff;
+            text-align: center;
+            padding: 2.4rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.35);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            margin: 0;
+            letter-spacing: -0.3px;
+            font-size: 2.55rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #C0F2FF, #7FD9FF, #3CABFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            margin-top: 12px;
+            font-size: 1.05rem;
+            font-weight: 500;
+            opacity: 0.95;
+            color: #d9efff;
+            letter-spacing: 0.3px;
+        }
+
+        .container {
+            padding: 2.5rem 1.8rem;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 36px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.15, 0.85, 0.35, 1.05);
+            border: 1px solid #e2ecf7;
+            box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 32px 44px -18px rgba(0, 0, 0, 0.22);
+            border-color: #3c9eff;
+        }
+
+        /* FULL IMAGE CONTAINER — crisp product display */
+        .img-container {
+            width: 100%;
+            background: #f2f8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            min-height: 300px;
+            max-height: 380px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease-out, filter 0.3s;
+            transform: scale(1);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.02) contrast(1.02);
+        }
+
+        .product-info {
+            padding: 1.4rem 1.3rem 1.8rem;
+            text-align: center;
+            background: white;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .product-info h3 {
+            margin: 8px 0 4px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0e2a3b;
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+        }
+
+        .price {
+            font-size: 1.9rem;
+            font-weight: 800;
+            margin: 6px 0;
+            display: inline-block;
+            background: linear-gradient(145deg, #1f6392, #0e4b6e);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #e3f0ff;
+            color: #0c4e6e;
+            padding: 6px 18px;
+            border-radius: 80px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            border-left: 3px solid #3c9eff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
+            text-transform: uppercase;
+            align-self: center;
+        }
+
+        .badge-ai {
+            background: #121f2c;
+            color: #8acdff;
+            border-left: 3px solid #00e0ff;
+        }
+
+        .badge-pro {
+            background: #fff0db;
+            color: #b45f1b;
+            border-left-color: #ff9f3c;
+        }
+
+        .buy-btn {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 12px 28px;
+            background: #192f3c;
+            color: #fff6e6;
+            text-decoration: none;
+            border-radius: 80px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.28s ease;
+            border: 1px solid rgba(60, 158, 255, 0.6);
+            letter-spacing: 0.6px;
+            backdrop-filter: blur(2px);
+        }
+
+        .buy-btn:hover {
+            background: #1e6b8f;
+            color: white;
+            border-color: #FFE2A4;
+            transform: scale(1.03);
+            box-shadow: 0 10px 22px -8px rgba(30, 107, 143, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: #0b1720;
+            color: #b8d0e3;
+            margin-top: 55px;
+            font-size: 0.85rem;
+            border-top: 2px solid #3c9eff;
+            font-weight: 400;
+        }
+
+        .product-card:hover .tag {
+            background: #ffe0b5;
+            border-left-color: #2c7a5e;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem;
+            }
+            header h1 {
+                font-size: 1.85rem;
+            }
+            .img-container {
+                min-height: 250px;
+                max-height: 290px;
+            }
+            .price {
+                font-size: 1.55rem;
+            }
+            .product-info h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(60,158,255,0.06) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border-radius: 36px;
+        }
+        .product-card {
+            position: relative;
+        }
+        .product-card:hover::after {
+            opacity: 1;
+        }
+
+        .rating-star {
+            color: #FFB347;
+            margin-top: 4px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>⚡ FINEST DEAL VAULT | AI ELECTRONICS & SMART GEAR ⚡</h1>
+    <p>QLED TVs · Drones · Cameras · Laptops · Tablets · Projectors · Smartwatches · Hi-Fi Sound Systems & Next‑Gen Gadgets</p>
+</header>
+
+<div class="container">
+    <div class="products">
+
+        <!-- 1. Flagship QLED 4K Smart TV - advanced AI upscaling -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81yZ5cNFitL._SL1500_.jpg" alt="QLED 4K Smart TV">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">📺 AI QUANTUM PROCESSOR</span>
+                <h3>Samsung 55" Neo QLED 8K</h3>
+                <div class="rating-star">★★★★★ 4.9 (3.2k+)</div>
+                <p class="price">₹1,64,990</p>
+                <a href="https://amzn.to/4t6pmg6" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 2. Cinematic 4K Ultra Short Throw Projector -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71Bt8UjS8TL._SL1500_.jpg" alt="Laser Projector 4K">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎬 HOME THEATER PRO</span>
+                <h3>XGIMI Horizon Ultra 4K Projector</h3>
+                <div class="rating-star">★★★★★ 4.95 (1.8k+)</div>
+                <p class="price">₹1,85,999</p>
+                <a href="https://amzn.to/4eSGDpy" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 3. AI Drone with 8K Camera & Obstacle Avoidance -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61f+5IhMqSL._SL1200_.jpg" alt="AI Cinematic Drone">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">✈️ CINEMATIC MASTER</span>
+                <h3>DJI Mavic 3 Pro (AI Tracking)</h3>
+                <div class="rating-star">★★★★★ 5.0 (2.2k+)</div>
+                <p class="price">₹1,38,990</p>
+                <a href="https://amzn.to/4tavh3H" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 4. Mirrorless Digital Camera 61MP + AI Eye AF -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81N+Tn7FENL._SL1500_.jpg" alt="Sony Alpha 7R V">
+            </div>
+            <div class="product-info">
+                <span class="tag">📸 PRO RESOLUTION</span>
+                <h3>Sony Alpha 7R V Mirrorless</h3>
+                <div class="rating-star">★★★★★ 4.98 (1.5k)</div>
+                <p class="price">₹2,89,990</p>
+                <a href="https://amzn.to/49imXb0" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 5. AI Gaming Laptop RTX 4090 / Intel Ultra -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71aXwfyRlTL._SL1500_.jpg" alt="Gaming Laptop">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🎮 AI OPTIMIZED</span>
+                <h3>ROG Strix Scar 18 (2025)</h3>
+                <div class="rating-star">★★★★★ 4.85 (970+)</div>
+                <p class="price">₹2,49,990</p>
+                <a href="https://amzn.to/49jPblL" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 6. Samsung Galaxy Tab S10 Ultra 5G -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71T1jQFVCfL._SL1500_.jpg" alt="Tablet S10 Ultra">
+            </div>
+            <div class="product-info">
+                <span class="tag">📱 DYNAMIC AMOLED 2X</span>
+                <h3>Samsung Galaxy Tab S10 Ultra</h3>
+                <div class="rating-star">★★★★★ 4.9 (2.6k+)</div>
+                <p class="price">₹1,09,990</p>
+                <a href="https://amzn.to/4n1UcFs" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 7. AI Foldable Smartphone + Projection accessory (ready for projection) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71aMB9R-hSL._SL1500_.jpg" alt="Foldable Smartphone">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">📱 FOLD + AI CAM</span>
+                <h3>Google Pixel Fold Pro (AI)</h3>
+                <div class="rating-star">★★★★★ 4.88 (1.9k+)</div>
+                <p class="price">₹1,49,999</p>
+                <a href="https://amzn.to/4cVkO6l" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Now →</a>
+            </div>
+        </div>
+
+        <!-- 8. Pocket Smart Projector (Mobile Projection) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/51itBTPdA-L._SL1200_.jpg" alt="Mini Pocket Projector">
+            </div>
+            <div class="product-info">
+                <span class="tag">📽️ MOBILE CINEMA</span>
+                <h3>Anker Nebula Capsule 3</h3>
+                <div class="rating-star">★★★★★ 4.75 (1.1k)</div>
+                <p class="price">₹44,990</p>
+                <a href="https://amzn.to/4vR8xZc" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 9. Advanced Smart Watch - ECG / AI Health Coach -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71qko+TBoCL._SL1500_.jpg" alt="Smart Watch Pro">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">⌚ AI HEALTH SENSE</span>
+                <h3>Apple Watch Ultra 3 (2026)</h3>
+                <div class="rating-star">★★★★★ 4.95 (3.2k)</div>
+                <p class="price">₹92,990</p>
+                <a href="https://amzn.to/4w5SuHi" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 10. Dolby Atmos Soundbar & Subwoofer System -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81+UeHgWUPL._SL1500_.jpg" alt="Wireless Soundbar">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎵 SPATIAL AUDIO</span>
+                <h3>Sony HT-A9 360 Spatial Sound</h3>
+                <div class="rating-star">★★★★★ 4.9 (1.4k+)</div>
+                <p class="price">₹1,59,990</p>
+                <a href="https://amzn.to/4dgS3SM" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 11. Premium Noise Cancelling Headphones + AI Adaptive ANC -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71fJf4F2JnL._SL1500_.jpg" alt="Sony WH-1000XM6">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎧 AI SOUND ZONE</span>
+                <h3>Sony WH-1000XM6 Wireless</h3>
+                <div class="rating-star">★★★★★ 4.92 (4.1k)</div>
+                <p class="price">₹29,990</p>
+                <a href="https://amzn.to/49huG9i" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 12. AI Robot Vacuum + Smart Mapping (home tech crossover) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71jZ96bCU2L._SL1500_.jpg" alt="Robot Vacuum with LIDAR">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🧹 AI NAVIGATION</span>
+                <h3>Roborock S8 MaxV Ultra</h3>
+                <div class="rating-star">★★★★★ 4.85 (2.3k)</div>
+                <p class="price">₹79,999</p>
+                <a href="https://amzn.to/4cHTYQk" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 13. 240Hz Gaming Monitor + Smart Hub SSD -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/81rC7o4UKJL._SL1500_.jpg" alt="Gaming Monitor 4K">
+            </div>
+            <div class="product-info">
+                <span class="tag">🖥️ ULTRA GAMING</span>
+                <h3>Alienware 32" 4K QD-OLED</h3>
+                <div class="rating-star">★★★★☆ 4.8 (920+)</div>
+                <p class="price">₹1,09,990</p>
+                <a href="https://amzn.to/49me7Jp" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 14. Handheld Gaming Console / Steam Deck style (mobile/tablet hybrid) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71ZXfVGzTIL._SL1500_.jpg" alt="Handheld Gaming PC">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎮 NEXT-GEN HANDHELD</span>
+                <h3>ASUS ROG Ally X (AI Boost)</h3>
+                <div class="rating-star">★★★★★ 4.78 (1.1k+)</div>
+                <p class="price">₹79,999</p>
+                <a href="https://amzn.to/495rI7P" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 15. Smart AR Glasses with projection tech (mobile projection experience) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61GR+jRk-tL._SL1500_.jpg" alt="AR Smart Glasses">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">👓 AR DISPLAY</span>
+                <h3>XREAL Air 2 Ultra Glasses</h3>
+                <div class="rating-star">★★★★☆ 4.7 (655+)</div>
+                <p class="price">₹46,990</p>
+                <a href="https://amzn.to/42DrSQ9" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 16. High-End Hi-Res Audio Player & DAC -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71tZ4uzuJaL._SL1500_.jpg" alt="Portable Audio Player">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎶 MASTER QUALITY</span>
+                <h3>FiiO M17 DAP (Hi-Res)</h3>
+                <div class="rating-star">★★★★★ 4.95 (540+)</div>
+                <p class="price">₹1,27,990</p>
+                <a href="https://amzn.to/4iZmjIm" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 17. Smart Keyboard / Trackpad Tablet accessory + AI productivity -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71kVDLpZYsL._SL1500_.jpg" alt="Magic Keyboard">
+            </div>
+            <div class="product-info">
+                <span class="tag">⌨️ AI MULTITASK</span>
+                <h3>Logitech Combo Touch (iPad Pro)</h3>
+                <div class="rating-star">★★★★★ 4.8 (2k+)</div>
+                <p class="price">₹27,999</p>
+                <a href="https://amzn.to/4iZXbTn" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 18. Next-Gen WiFi 7 Mesh System (Smart Home + Devices) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71uM8BbHvYL._SL1500_.jpg" alt="WiFi 7 Mesh Router">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🌐 AI MESH PRO</span>
+                <h3>TP-Link Deco BE95 (WiFi 7)</h3>
+                <div class="rating-star">★★★★★ 4.9 (870+)</div>
+                <p class="price">₹66,990</p>
+                <a href="https://amzn.to/4a2rvzt" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 19. Smart Doorbell + AI Security with projection integration (extra) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61QaKTgMcML._SL1500_.jpg" alt="Video Doorbell">
+            </div>
+            <div class="product-info">
+                <span class="tag">🔔 AI DETECTION</span>
+                <h3>Arlo Essential 2K Video Doorbell</h3>
+                <div class="rating-star">★★★★☆ 4.6 (1.2k+)</div>
+                <p class="price">₹13,990</p>
+                <a href="https://amzn.to/4bGjYEq" target="_blank" rel="noopener noreferrer" class="buy-btn">Shop Deal →</a>
+            </div>
+        </div>
+
+        <!-- 20. Professional Studio Monitor Speakers + Hi-Fi System -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71chEaWhZ5L._SL1500_.jpg" alt="Studio Monitors">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎧 REFERENCE AUDIO</span>
+                <h3>KRK Rokit 8 G5 (Pair)</h3>
+                <div class="rating-star">★★★★★ 4.9 (780+)</div>
+                <p class="price">₹62,990</p>
+                <a href="https://amzn.to/4brB3bI" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 21. AI Voice Recorder & Smart Transcription (essential for creators) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61hHqMVb39L._SL1200_.jpg" alt="AI Voice Recorder">
+            </div>
+            <div class="product-info">
+                <span class="tag badge-ai">🎙️ AI TRANSCRIBE</span>
+                <h3>Plaud NotePin (AI Recorder)</h3>
+                <div class="rating-star">★★★★★ 4.85 (440+)</div>
+                <p class="price">₹18,490</p>
+                <a href="https://amzn.to/4bN02QF" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 22. Ultimate Streaming Media Player + Smart Hub -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/71rBYoF-hwL._SL1500_.jpg" alt="Nvidia Shield TV Pro">
+            </div>
+            <div class="product-info">
+                <span class="tag">🎬 AI UPCONVERSION</span>
+                <h3>NVIDIA Shield TV Pro</h3>
+                <div class="rating-star">★★★★★ 4.95 (3.8k)</div>
+                <p class="price">₹25,999</p>
+                <a href="https://amzn.to/4caT3ew" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 23. Portable Mini Projector with Smart Keystone (Mobile Projection companion) -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61V7bB-xrVL._SL1500_.jpg" alt="Mini Projector Full HD">
+            </div>
+            <div class="product-info">
+                <span class="tag">📱 POCKET THEATER</span>
+                <h3>Samsung Freestyle 2nd Gen</h3>
+                <div class="rating-star">★★★★★ 4.8 (2.1k+)</div>
+                <p class="price">₹49,990</p>
+                <a href="https://amzn.to/4cmbxaa" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+        <!-- 24. Ultimate Smart Speaker with AI Assistant & Sound System -->
+        <div class="product-card">
+            <div class="img-container">
+                <img src="https://m.media-amazon.com/images/I/61tRjK5UyGL._SL1500_.jpg" alt="Apple HomePod 2">
+            </div>
+            <div class="product-info">
+                <span class="tag">🔊 ROOM-FILLING AUDIO</span>
+                <h3>HomePod (2nd Gen) Stereo Pair</h3>
+                <div class="rating-star">★★★★★ 4.88 (1.6k)</div>
+                <p class="price">₹42,990</p>
+                <a href="https://amzn.to/4cOKgPj" target="_blank" rel="noopener noreferrer" class="buy-btn">Explore and Buy →</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    ✦ FINEST DEAL VAULT — Future-Proof Electronics & AI Innovation ✦ <br>
+    © 2026 FindealVault.online | Affiliate Disclosure: We earn commissions from qualifying purchases. | Curated Smart Devices, Drones, QLED TVs, Projectors, Sound Systems & more
+</footer>
+
+</body>
+</html>
